@@ -1,29 +1,28 @@
 //
-//  AddCategoryView.swift
+//  UpdateCategoryView.swift
 //  ToDoList
 //
-//  Created by David E Bratton on 3/29/20.
+//  Created by David E Bratton on 4/2/20.
 //  Copyright © 2020 David E Bratton. All rights reserved.
 //
 
 import SwiftUI
 
-struct AddCategoryView: View {
+struct UpdateCategoryView: View {
     
     @Environment(\.presentationMode) var addCategoryViewMode
     @State private var showAlert = false
+    @State private var id = ""
     @State private var name = ""
     @State private var dueDate = Date()
     @State private var dueTime = Date()
     @State private var isImportant = false
     @State private var isComplete = false
+    var passedCategory: CategoryViewModel
     var catListVM = CategoryListViewModel(complete: "")
-    
+
     var body: some View {
         VStack(alignment: .center) {
-            HStack {
-                Spacer()
-                Spacer()
             VStack(spacing: 10) {
                 Text("Category Name")
                     .fontWeight(.bold)
@@ -33,24 +32,34 @@ struct AddCategoryView: View {
                     .font(Font.system(size: 25, design: .default))
                     .multilineTextAlignment(.leading)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .onAppear {
+                        self.id = self.passedCategory.id
+                        self.name = self.passedCategory.name
+                }
             } // End VStack
-                Spacer()
-                Spacer()
-            } // End HStack
             
             HStack {
                 Toggle(isOn: $isImportant) {
                     Text("Important")
                     .fontWeight(.bold)
                     .foregroundColor(.orange)
-                }.onTapGesture {
+                }
+                .onAppear {
+                    self.isImportant = self.passedCategory.isImportant
+                }
+                .onTapGesture {
                     self.isImportant.toggle()
                 }
+                
                 Toggle(isOn: $isComplete) {
                     Text("Complete")
                     .fontWeight(.bold)
                     .foregroundColor(.orange)
-                }.onTapGesture {
+                }
+                .onAppear {
+                    self.isComplete = self.passedCategory.isComplete
+                }
+                .onTapGesture {
                     self.isComplete.toggle()
                 }
             } // End HStack
@@ -64,6 +73,9 @@ struct AddCategoryView: View {
                 DatePicker(selection: $dueDate, displayedComponents: .date) {
                     Text("")
                 }.labelsHidden()
+                    .onAppear {
+                        self.dueDate = self.passedCategory.dueDate
+                }
             } // End VStack
             
             VStack(spacing: 5) {
@@ -74,16 +86,19 @@ struct AddCategoryView: View {
                 DatePicker(selection: $dueTime, displayedComponents: .hourAndMinute) {
                     Text("")
                 }.labelsHidden()
+                    .onAppear {
+                        self.dueTime = self.passedCategory.dueTime
+                }
             } // End VStack
             
             Button(action: {
-                print("DEBUG: Save Category Pressed...")
+                print("DEBUG: Update Category Pressed...")
                 guard self.name != "" else {
                     self.showAlert.toggle()
                     return
                 }
-
-                self.catListVM.addCategory(id: UUID().uuidString, dueDate: self.dueDate, dueTime: self.dueTime, isComplete: self.isComplete, isImportant: self.isImportant, name: self.name)
+                
+                self.catListVM.updateCategory(id: self.id, dueDate: self.dueDate, dueTime: self.dueTime, isComplete: self.isComplete, isImportant: self.isImportant, name: self.name)
                 self.addCategoryViewMode.wrappedValue.dismiss()
                 
             }) {
@@ -98,7 +113,7 @@ struct AddCategoryView: View {
             }
             Spacer()
         } // End VStack
-        .navigationBarTitle(Text("Add Category"))
+        .navigationBarTitle(Text("Update Category"))
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
             Button(action: {
@@ -115,10 +130,4 @@ struct AddCategoryView: View {
                 Alert(title: Text("Error!"), message: Text("Category name is mandatory!"), dismissButton: .default(Text("Close")))
         }
     } // End BodyView
-}
-
-struct AddCategoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCategoryView()
-    }
 }
