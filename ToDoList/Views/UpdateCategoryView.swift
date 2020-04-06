@@ -15,7 +15,6 @@ struct UpdateCategoryView: View {
     @State private var id = ""
     @State private var name = ""
     @State private var dueDate = Date()
-    @State private var dueTime = Date()
     @State private var isImportant = false
     @State private var isComplete = false
     var passedCategory: CategoryViewModel
@@ -70,24 +69,11 @@ struct UpdateCategoryView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.orange)
                 
-                DatePicker(selection: $dueDate, displayedComponents: .date) {
+                DatePicker(selection: $dueDate) {
                     Text("")
                 }.labelsHidden()
                     .onAppear {
                         self.dueDate = self.passedCategory.dueDate
-                }
-            } // End VStack
-            
-            VStack(spacing: 5) {
-                Text("Due Time")
-                    .fontWeight(.bold)
-                    .foregroundColor(.orange)
-                
-                DatePicker(selection: $dueTime, displayedComponents: .hourAndMinute) {
-                    Text("")
-                }.labelsHidden()
-                    .onAppear {
-                        self.dueTime = self.passedCategory.dueTime
                 }
             } // End VStack
             
@@ -98,7 +84,7 @@ struct UpdateCategoryView: View {
                     return
                 }
                 
-                self.catListVM.updateCategory(id: self.id, dueDate: self.dueDate, dueTime: self.dueTime, isComplete: self.isComplete, isImportant: self.isImportant, name: self.name)
+                self.catListVM.updateCategory(id: self.id, dueDate: self.dueDate, isComplete: self.isComplete, isImportant: self.isImportant, name: self.name)
                 self.addCategoryViewMode.wrappedValue.dismiss()
                 
             }) {
@@ -125,7 +111,8 @@ struct UpdateCategoryView: View {
                     Text("Back")
                         .font(Font.system(.title).bold())
                 } // End HStack
-            })
+            }, trailing:
+            Text(DateExtensions.shared.convertDate(type: "Full", passedDate: Date())).foregroundColor(.orange))
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error!"), message: Text("Category name is mandatory!"), dismissButton: .default(Text("Close")))
         }

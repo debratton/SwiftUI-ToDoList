@@ -44,16 +44,31 @@ struct CategoryCellView: View {
                         Text("Due Date:")
                             .font(.custom("Arial", size: 12))
                             .fontWeight(.bold)
-                        Text(dueDate)
+                        
+                        if self.passedCategory.dueDate < Date() {
+                            Text(dueDate)
                             .font(.custom("Arial", size: 12))
+                                .foregroundColor(.red)
+                        } else {
+                            Text(dueDate)
+                            .font(.custom("Arial", size: 12))
+                        }
+                        
                     } // End HStack
                         .frame(width: 200, alignment: .leading)
                     HStack(spacing: 5)  {
                         Text("Due Time:")
                             .font(.custom("Arial", size: 12))
                             .fontWeight(.bold)
-                        Text(dueTime)
+                        
+                        if self.passedCategory.dueDate < Date() {
+                            Text(dueTime)
                             .font(.custom("Arial", size: 12))
+                                .foregroundColor(.red)
+                        } else {
+                            Text(dueTime)
+                            .font(.custom("Arial", size: 12))
+                        }
                     } // End HStack
                         .frame(width: 200, alignment: .leading)
                 } // End VStack

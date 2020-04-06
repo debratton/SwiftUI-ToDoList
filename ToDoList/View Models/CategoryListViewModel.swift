@@ -24,8 +24,8 @@ class CategoryListViewModel: ObservableObject {
         print("DEBUG: Category fetch results for string \(searchString): \(self.categories.count)")
     }
     
-    func addCategory(id: String, dueDate: Date, dueTime: Date, isComplete: Bool, isImportant: Bool, name: String) {
-        CoreDataManager.shared.saveCategory(id: id, createdAt: Date(), dueDate: dueDate, dueTime: dueTime, isComplete: isComplete, isImportant: isImportant, name: name)
+    func addCategory(id: String, dueDate: Date, isComplete: Bool, isImportant: Bool, name: String) {
+        CoreDataManager.shared.saveCategory(id: id, createdAt: Date(), dueDate: dueDate, isComplete: isComplete, isImportant: isImportant, name: name)
         fetchCategoriesFiltered(searchString: "", complete: "NO")
     }
     
@@ -39,8 +39,8 @@ class CategoryListViewModel: ObservableObject {
         fetchCategoriesFiltered(searchString: "", complete: complete)
     }
     
-    func updateCategory(id: String, dueDate: Date, dueTime: Date, isComplete: Bool, isImportant: Bool, name: String) {
-        CoreDataManager.shared.updateCategory(id: id, dueDate: dueDate, dueTime: dueTime, isComplete: isComplete, isImportant: isImportant, name: name)
+    func updateCategory(id: String, dueDate: Date, isComplete: Bool, isImportant: Bool, name: String) {
+        CoreDataManager.shared.updateCategory(id: id, dueDate: dueDate, isComplete: isComplete, isImportant: isImportant, name: name)
         fetchCategoriesFiltered(searchString: "", complete: "")
     }
 }
@@ -49,7 +49,6 @@ class CategoryViewModel {
     var id: String = ""
     var createdAt: Date
     var dueDate: Date
-    var dueTime: Date
     var isComplete: Bool
     var isImportant: Bool
     var name: String = ""
@@ -58,7 +57,6 @@ class CategoryViewModel {
         self.id = category.id!
         self.createdAt = category.createdAt!
         self.dueDate = category.dueDate!
-        self.dueTime = category.dueTime!
         self.isComplete = category.isComplete
         self.isImportant = category.isImportant
         self.name = category.name!

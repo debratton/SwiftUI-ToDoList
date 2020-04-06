@@ -53,8 +53,7 @@ class CoreDataManager {
             let request: NSFetchRequest<Category> = Category.fetchRequest()
             let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchString)
             let sortDueDate = NSSortDescriptor(key: "dueDate", ascending: true)
-            let sortDueTime = NSSortDescriptor(key: "dueTime", ascending: false)
-            let sortDescriptors = [sortDueDate, sortDueTime]
+            let sortDescriptors = [sortDueDate]
             request.sortDescriptors = sortDescriptors
             request.predicate = predicate
             do {
@@ -70,8 +69,7 @@ class CoreDataManager {
                 let request: NSFetchRequest<Category> = Category.fetchRequest()
                 let predicate = NSPredicate(format: "isComplete == 0")
                 let sortDueDate = NSSortDescriptor(key: "dueDate", ascending: true)
-                let sortDueTime = NSSortDescriptor(key: "dueTime", ascending: false)
-                let sortDescriptors = [sortDueDate, sortDueTime]
+                let sortDescriptors = [sortDueDate]
                 request.sortDescriptors = sortDescriptors
                 request.predicate = predicate
                 do {
@@ -85,8 +83,7 @@ class CoreDataManager {
                 let request: NSFetchRequest<Category> = Category.fetchRequest()
                 let predicate = NSPredicate(format: "isComplete == 1")
                 let sortDueDate = NSSortDescriptor(key: "dueDate", ascending: true)
-                let sortDueTime = NSSortDescriptor(key: "dueTime", ascending: false)
-                let sortDescriptors = [sortDueDate, sortDueTime]
+                let sortDescriptors = [sortDueDate]
                 request.sortDescriptors = sortDescriptors
                 request.predicate = predicate
                 do {
@@ -100,8 +97,7 @@ class CoreDataManager {
                 let request: NSFetchRequest<Category> = Category.fetchRequest()
                 let predicate = NSPredicate(format: "isComplete == 0 || isComplete == 1")
                 let sortDueDate = NSSortDescriptor(key: "dueDate", ascending: true)
-                let sortDueTime = NSSortDescriptor(key: "dueTime", ascending: false)
-                let sortDescriptors = [sortDueDate, sortDueTime]
+                let sortDescriptors = [sortDueDate]
                 request.sortDescriptors = sortDescriptors
                 request.predicate = predicate
                 do {
@@ -115,8 +111,7 @@ class CoreDataManager {
                 let request: NSFetchRequest<Category> = Category.fetchRequest()
                 let predicate = NSPredicate(format: "isComplete == 0")
                 let sortDueDate = NSSortDescriptor(key: "dueDate", ascending: true)
-                let sortDueTime = NSSortDescriptor(key: "dueTime", ascending: false)
-                let sortDescriptors = [sortDueDate, sortDueTime]
+                let sortDescriptors = [sortDueDate]
                 request.sortDescriptors = sortDescriptors
                 request.predicate = predicate
                 do {
@@ -130,12 +125,11 @@ class CoreDataManager {
     }
     
     // MARK: - Category Save
-    func saveCategory(id: String, createdAt: Date, dueDate: Date, dueTime: Date, isComplete: Bool, isImportant: Bool, name: String) {
+    func saveCategory(id: String, createdAt: Date, dueDate: Date, isComplete: Bool, isImportant: Bool, name: String) {
         let category = Category(context: self.moc)
         category.id = id
         category.createdAt = createdAt
         category.dueDate = dueDate
-        category.dueTime = dueTime
         category.isComplete = isComplete
         category.isImportant = isImportant
         category.name = name
@@ -160,10 +154,9 @@ class CoreDataManager {
     }
     
     // MARK: - Category Update
-    func updateCategory(id: String, dueDate: Date, dueTime: Date, isComplete: Bool, isImportant: Bool, name: String) {
+    func updateCategory(id: String, dueDate: Date, isComplete: Bool, isImportant: Bool, name: String) {
         if let category = fetchCategory(id: id) {
             category.dueDate = dueDate
-            category.dueTime = dueTime
             category.isComplete = isComplete
             category.isImportant = isImportant
             category.name = name

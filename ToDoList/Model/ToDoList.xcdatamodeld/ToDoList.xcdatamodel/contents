@@ -3,7 +3,6 @@
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dueTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="isComplete" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isImportant" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -17,7 +16,7 @@
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-352.640625" positionY="49.46484375" width="128" height="163"/>
+        <element name="Category" positionX="-352.640625" positionY="49.46484375" width="128" height="148"/>
         <element name="Item" positionX="-54" positionY="36" width="128" height="103"/>
     </elements>
 </model>

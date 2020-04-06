@@ -66,7 +66,7 @@ struct CategoryView: View {
                     List {
                         ForEach(self.catListVM.categories, id: \.id) { cat in
                             NavigationLink(destination: UpdateCategoryView(passedCategory: cat)) {
-                                CategoryCellView(itemCount: self.itemListVM.fetchItemsCount(passedCatId: cat.id), name: cat.name, isImportant: cat.isImportant, isComplete: cat.isComplete, dueDate: DateExtensions.shared.convertDate(type: "Medium", passedDate: cat.dueDate), dueTime: DateExtensions.shared.convertTime(type: "Short", passedDate: cat.dueTime), sortText: self.sortText, searchText: self.searchText, passedCategory: cat, catListVM: self.catListVM, itemListVM: self.itemListVM)
+                                CategoryCellView(itemCount: self.itemListVM.fetchItemsCount(passedCatId: cat.id), name: cat.name, isImportant: cat.isImportant, isComplete: cat.isComplete, dueDate: DateExtensions.shared.convertDate(type: "Medium", passedDate: cat.dueDate), dueTime: DateExtensions.shared.convertTime(type: "Short", passedDate: cat.dueDate), sortText: self.sortText, searchText: self.searchText, passedCategory: cat, catListVM: self.catListVM, itemListVM: self.itemListVM)
                             } // End NavigationLink
                         } // End ForEach
                             .onDelete(perform: deleteCategory)
@@ -75,7 +75,7 @@ struct CategoryView: View {
                     List {
                         ForEach(self.catListVM.categories, id: \.id) { cat in
                             NavigationLink(destination: ItemView(passedCategory: cat)) {
-                                CategoryCellView(itemCount: self.itemListVM.fetchItemsCount(passedCatId: cat.id), name: cat.name, isImportant: cat.isImportant, isComplete: cat.isComplete, dueDate: DateExtensions.shared.convertDate(type: "Medium", passedDate: cat.dueDate), dueTime: DateExtensions.shared.convertTime(type: "Short", passedDate: cat.dueTime), sortText: self.sortText, searchText: self.searchText, passedCategory: cat, catListVM: self.catListVM, itemListVM: self.itemListVM)
+                                CategoryCellView(itemCount: self.itemListVM.fetchItemsCount(passedCatId: cat.id), name: cat.name, isImportant: cat.isImportant, isComplete: cat.isComplete, dueDate: DateExtensions.shared.convertDate(type: "Medium", passedDate: cat.dueDate), dueTime: DateExtensions.shared.convertTime(type: "Short", passedDate: cat.dueDate), sortText: self.sortText, searchText: self.searchText, passedCategory: cat, catListVM: self.catListVM, itemListVM: self.itemListVM)
                             } // End NavigationLink
                         } // End ForEach
                             .onDelete(perform: deleteCategory)
